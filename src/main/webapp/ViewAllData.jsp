@@ -16,7 +16,14 @@
  <script type="text/javascript">
         $(document).ready(function () {
             $("#hols").dataTable({
-            	  "aaSorting": [[5,'ASC']]
+            	  "aaSorting": [[5,'ASC']],
+            	  "columnDefs": [
+	            	               {
+	            	            	   "targets":[ 0 ],
+	            	            	   "visible":false,
+	            	            	   "searchable":false
+	            	               }
+            	               ]
             });
         });
  </script>
@@ -36,6 +43,7 @@
 <table id="hols" class="ui celled table"  cellspacing="0" width="100%">
 		            <thead>
 		                <tr>
+		                	<th><u>ID</u></th>
 		                    <th><u>Employee ID</u></th>
 		                    <th><u>Full Name</u></th>
 		                    <th><u>Start Date</u></th>
@@ -46,6 +54,7 @@
 		            <tbody>
 		          		<% for(User c: FetchDataFromDb.getHolsData()){ %>
 						  <tr>
+						  	<td><%=c.getID() %></td>
 						    <td><%=c.getEmpId()%></td>
 						    <td><%=c.getFullname()%></td>
 						    <td><%=c.getStartDate()%></td>

@@ -154,11 +154,24 @@ public class User {
   }
   
   /**
+   * get Submitted Date.
+   * @return submittedDate
+   */
+  
+  public void setDateSubmitted(String submittedDate) {
+    this.submittedDate = submittedDate;
+  }
+  
+  /**
    * Get ID from the database.
    * @return id
    */
   
   public int getID(){
     return id;
+  }
+  
+  public void setID(int id){
+	  this.id = id;
   }
 }

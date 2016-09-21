@@ -14,7 +14,8 @@ import conn.DbConnection;
  * to be use in the datatable.
  */
 public class FetchDataFromDb {
-  /**
+	static ResultSet rs;
+	/**
    * private constructor.
    */
   private FetchDataFromDb(){
@@ -24,7 +25,7 @@ public class FetchDataFromDb {
    * get a list of all data from the database
    * @return ls
    */
-  public static List<User> getHolsData() {
+  public  static List<User> getHolsData() {
     /**
      * Create an instance of a class DbConnection
      */
@@ -39,21 +40,30 @@ public class FetchDataFromDb {
      */
     List<User> ls = new LinkedList<>();
     try {
-      ResultSet rs = db.getCon().prepareStatement("SELECT * FROM t_holiday ORDER BY ID DESC").executeQuery();
+       rs = db.getCon().prepareStatement("SELECT * FROM t_holiday ORDER BY ID DESC").executeQuery();
       while (rs.next()) {
-        User n = new User(rs.getInt(1),rs.getInt(2), rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6) );
-        ls.add(n);
+    	//User n = new User(rs.getInt(1),rs.getInt(2), rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6) );
+    	FetchDataFromDb getData = new FetchDataFromDb();
+    	ls.add(getData.populateUserVO());
+    	//System.out.println(getData.populateUserVO());
+        //ls.add(n);
       }
     } catch (SQLException e) {
       logger.log(Level.SEVERE, "Please check your MySQL syntax", e);
     }
     return ls;
   }
-  /*
-  private User populateUserVO() {
-	// TODO Auto-generated method stub
-	  User user = new User();
-	  user.setEmpId(rs.getInt(2));	
-  }*/
   
+  private User populateUserVO() throws SQLException {
+	// TODO Auto-generated method stub
+	  
+	  User user = new User();
+	  user.setID(rs.getInt(1));
+	  user.setEmpId(rs.getInt(2));
+	  user.setFullname(rs.getString(3));
+	  user.setStartDate(rs.getString(4));
+	  user.setEndDate(rs.getString(5));
+	  user.setDateSubmitted(rs.getString(6));
+	  return user;	  
+  }
 }
